@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, Post, Put, UseGuards } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, Put, Query, UseGuards } from '@nestjs/common';
 import { AuthGuard, Type } from '@nestjs/passport';
 import { Roles } from '../auth/roles.decorator';
 import { JwtAuthGuard } from '../auth/jwt.guard';
@@ -14,8 +14,11 @@ export class ProductController {
     constructor(private readonly productService: ProductService){}
 
     @Get()
-    async find():Promise<any> {
-        return await this.productService.FindProducts();
+    async find(@Query('price') price: number
+            , @Query('pft') pft: number
+            , @Query('stock') stock: number
+            , @Query('sft') sft: number):Promise<any> {
+        return await this.productService.FindProducts(price, pft, stock, sft);
     }
     
     @Post()
