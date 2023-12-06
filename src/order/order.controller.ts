@@ -13,9 +13,7 @@ export class OrderController {
 
     @Get()
     @Roles(RoleEnum.Manager, RoleEnum.Customer)
-    async findAll( @Req() req: Request):Promise<any> {
-        console.log(req['user']['roleType']);
-        console.log(req['user']['roleType'] === Number(RoleEnum.Customer))
+    async findAll(@Req() req: Request):Promise<any> {
         if(req['user']['roleType'] === Number(RoleEnum.Customer)){
             return await this.orderService.findOrder(req['user']['_id']);
         }else{

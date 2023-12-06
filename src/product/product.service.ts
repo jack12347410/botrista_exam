@@ -4,11 +4,13 @@ import { Model, ModifyResult, Types } from 'mongoose';
 import { Product } from './product.entity';
 import { ProductDto } from './product.dto';
 import { FilterEnum } from './filter.enum';
+import { Order } from '../order/order.entity';
 
 @Injectable()
 export class ProductService {
     constructor(
         @InjectModel('product') private readonly productModel: Model<Product>
+        ,@InjectModel('order') private readonly orderModel: Model<Order>
     ){}
 
     async createProduct(dto: ProductDto):Promise<any> {
@@ -16,7 +18,7 @@ export class ProductService {
             return await this.productModel.create(dto);
         }catch(error){
             console.log(error);
-            throw new BadRequestException(`create product failed`); 
+            throw new BadRequestException(`create product failed, ${error}`); 
         }   
     }
 
@@ -25,16 +27,20 @@ export class ProductService {
             return await this.productModel.findByIdAndUpdate(id, dto, { new: true });
         }catch(error){
             console.log(error);
-            throw new BadRequestException(`update product failed`); 
+            throw new BadRequestException(`update product failed, ${error}`); 
         }
     }
 
     async deleteProduct(id: string): Promise<any> {
         try{
+            const count = await this.orderModel.countDocuments({'products.productId': new Types.ObjectId(id)});
+            if(count > 0 ) {
+                throw new BadRequestException('this product is in some order')
+            }
             return await this.productModel.findByIdAndDelete(id);
         }catch(error){
             console.log(error);
-            throw new BadRequestException(`delete product failed`); 
+            throw new BadRequestException(`delete product failed, ${error}`); 
         }  
     }
 
@@ -53,7 +59,7 @@ export class ProductService {
             return await this.productModel.find(query);
         }catch(error){
             console.log(error);
-            throw new BadRequestException(`find products failed`); 
+            throw new BadRequestException(`find products failed, ${error}`); 
         }
     }
 
