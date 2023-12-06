@@ -26,9 +26,10 @@ import { PassportModule } from '@nestjs/passport';
 export class AuthModule implements OnModuleInit{
   constructor(@InjectModel('user') private readonly userModel: Model<User>){}
   onModuleInit() {
-    console.log(`follow these two role to login`);
+    console.log(`follow these role to login`);
     this.createIfNotExists('manager', 1);
     this.createIfNotExists('customer', 2);
+    this.createIfNotExists('customer_2', 2);
   }
 
   private async createIfNotExists(account: string, roleType: number): Promise<void> {

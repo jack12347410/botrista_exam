@@ -18,28 +18,28 @@ export class ProductController {
             , @Query('pft') pft: number
             , @Query('stock') stock: number
             , @Query('sft') sft: number):Promise<any> {
-        return await this.productService.FindProducts(price, pft, stock, sft);
+        return await this.productService.findProducts(price, pft, stock, sft);
     }
     
     @Post()
     @Roles(RoleEnum.Manager)
     @UseGuards(JwtAuthGuard, RolesGuard)
     async Create(@Body() product:ProductDto):Promise<any> {
-        return await this.productService.CreateProduct(product);
+        return await this.productService.createProduct(product);
     }
 
     @Put(':id')    
     @Roles(RoleEnum.Manager)
     @UseGuards(JwtAuthGuard, RolesGuard)
     async Update(@Param('id') id:string, @Body() updateData: ProductDto): Promise<any> {
-        return await this.productService.UpdateProduct(id, updateData);
+        return await this.productService.updateProduct(id, updateData);
     }
 
     @Delete(':id')
     @Roles(RoleEnum.Manager)
     @UseGuards(JwtAuthGuard, RolesGuard)
     async Delete(@Param('id') id: string) : Promise<any> {
-        return await this.productService.DeleteProduct(id);
+        return await this.productService.deleteProduct(id);
     }
 
 }

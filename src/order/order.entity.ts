@@ -8,10 +8,15 @@ export class Order extends Document{
     _id: Types.ObjectId;
 
     @Prop({required: true, ref: "user"})
-    customerId: User;
+    customerId: Types.ObjectId;
 
     @Prop({ref: "product"})
-    products: { product: Product; quantity: number }[];
+    products: { 
+        productId: Types.ObjectId; quantity: number 
+    }[];
+
+    @Prop({required: true})
+    createAt: Date;
 }
 
 export const OrderSchema = SchemaFactory.createForClass(Order);

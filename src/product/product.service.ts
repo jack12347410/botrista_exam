@@ -11,7 +11,7 @@ export class ProductService {
         @InjectModel('product') private readonly productModel: Model<Product>
     ){}
 
-    async CreateProduct(dto: ProductDto):Promise<any> {
+    async createProduct(dto: ProductDto):Promise<any> {
         try{
             return await this.productModel.create(dto);
         }catch(error){
@@ -20,7 +20,7 @@ export class ProductService {
         }   
     }
 
-    async UpdateProduct(id: string, dto: ProductDto): Promise<Product> {
+    async updateProduct(id: string, dto: ProductDto): Promise<Product> {
         try{
             return await this.productModel.findByIdAndUpdate(id, dto, { new: true });
         }catch(error){
@@ -29,7 +29,7 @@ export class ProductService {
         }
     }
 
-    async DeleteProduct(id: string): Promise<any> {
+    async deleteProduct(id: string): Promise<any> {
         try{
             return await this.productModel.findByIdAndDelete(id);
         }catch(error){
@@ -38,7 +38,7 @@ export class ProductService {
         }  
     }
 
-    async FindProducts(price: number, priceFilterType:number, stock: number, stockFilterType:number):Promise<any> {
+    async findProducts(price: number, priceFilterType:number, stock: number, stockFilterType:number):Promise<any> {
         try{
             const query = {};
             if(price !== undefined){
