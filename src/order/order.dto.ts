@@ -7,7 +7,7 @@ export class CreateOrderDto{
     @IsArray()
     @ArrayMinSize(1)
     @Type(()=> CreateOrderProductDto)
-    @ValidateNested({ each: true })
+    @ValidateNested({ each: true })//validate each element of the array
     products: CreateOrderProductDto[];
 }
 
