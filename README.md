@@ -85,17 +85,17 @@ Nest is [MIT licensed](LICENSE).
       -	name: string
       -	price: number (float)
       -	stock: number (integer)
-    ○	Only the manager is allowed to create and edit the product.
-    ○	If someone has ordered the product, the product is not allowed to be deleted.
-  ●	Products list API
-    ○	The product list should be filterable by price or stock.
-  ●	Create order API (Login Required)
-    ○	Only customers can create orders.
-    ○	An order may include multiple products.
-    ○	If the product is out of stock, the order cannot be created.
-  ●	Order list API (Login Required):
-    ○	The customer can only view their own orders.
-    ○	Manager can view all orders.
+    -	Only the manager is allowed to create and edit the product.
+    -	If someone has ordered the product, the product is not allowed to be deleted.
+  -	Products list API
+    -	The product list should be filterable by price or stock.
+  -	Create order API (Login Required)
+    -	Only customers can create orders.
+    -	An order may include multiple products.
+    -	If the product is out of stock, the order cannot be created.
+  -	Order list API (Login Required):
+    -	The customer can only view their own orders.
+    -	Manager can view all orders.
 
 ## Test account:
 { account: 'manager', password: 'manager', roleType: 1 }
