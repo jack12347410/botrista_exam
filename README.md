@@ -76,8 +76,8 @@ Nest is [MIT licensed](LICENSE).
 ## Question: 
   Create an API service using Node.js, with the flexibility to choose whether to implement it in TypeScript or JavaScript. Additionally, you can use either relational databases or NoSQL databases, and you can use any framework (Express.js, fastify...) you prefer.
 ## User role:
-  ●	Manager: Allow to manage product data and view customer's orders.
-  ●	Customer: Can create the order
+  -	Manager: Allow to manage product data and view customer's orders.
+  -	Customer: Can create the order
 ## Implement APIs:
   ●	Login API
   ●	Create product, Edit product, Delete product API (Login Required)
