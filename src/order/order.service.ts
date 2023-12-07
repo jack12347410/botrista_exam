@@ -12,27 +12,32 @@ export class OrderService {
         @InjectModel('product') private readonly productModel: Model<Product>
     ){}
 
-    async CreateOrder(customerId: string, orderDto: CreateOrderDto):Promise<any> {
+    async CreateOrder(customerId: string, dto: CreateOrderDto):Promise<any> {
         try{
+            const order = { 
+                products: [],  
+                createAt: new Date(),
+                customerId: new Types.ObjectId(customerId),
+            };
             const updateProductQuery = [];
-            for(let i = 0; i < orderDto.products.length; i++){
-                const product = await this.productModel.findById(orderDto.products[i].productId);
-                if(product.stock < orderDto.products[i].quantity) {
+            for(let i = 0; i < dto.products.length; i++){
+                const product = await this.productModel.findById(dto.products[i].productId);
+                if(product.stock < dto.products[i].quantity) {
                     throw new BadRequestException(`${product.name}'s stock is not enough.`);
                 }
-                orderDto.products[i].productId = new Types.ObjectId(orderDto.products[i].productId);
+                order.products.push({
+                    productId: new Types.ObjectId(dto.products[i].productId),
+                    quantity: dto.products[i].quantity,
+                });
 
                 //更新庫存query
                 updateProductQuery.push({
                     updateOne: {
-                        filter: {_id: orderDto.products[i].productId}
-                        ,update :{ $set:{stock: product.stock - orderDto.products[i].quantity}}
+                        filter: {_id: dto.products[i].productId}
+                        ,update :{ $set:{stock: product.stock - dto.products[i].quantity}}
                     }
                 });
             }
-            const order = orderDto;
-            order['createAt'] = new Date();
-            order['customerId'] = new Types.ObjectId(customerId);
 
             const session = await this.productModel.db.startSession();
             const create = await session.withTransaction(async ()=>{

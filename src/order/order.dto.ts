@@ -6,7 +6,7 @@ import { ApiProperty } from "@nestjs/swagger";
 export class CreateOrderProductDto{
     @ApiProperty()
     @IsNotEmpty()
-    productId: Types.ObjectId; 
+    productId: string; 
 
     @ApiProperty()
     @IsNotEmpty()
