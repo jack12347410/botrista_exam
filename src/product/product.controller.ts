@@ -8,11 +8,36 @@ import { Product } from './product.entity';
 import { CreateProductDto, UpdateProductDto } from './product.dto';
 import { ProductService } from './product.service';
 import { Types } from 'mongoose';
+import { ApiBearerAuth, ApiOperation, ApiQuery, ApiTags } from '@nestjs/swagger';
 
+@ApiTags('product')
 @Controller('product')
 export class ProductController {
     constructor(private readonly productService: ProductService){}
 
+    @ApiOperation({
+        summary: 'product list',
+    })
+    @ApiQuery({
+        name: 'price',
+        required: false,
+        description: 'price(option)'
+    })
+    @ApiQuery({
+        name: 'pft',
+        required: false,
+        description: 'price filter type(default:0)(0: greater, 1: less)'
+    })
+    @ApiQuery({
+        name: 'stock',
+        required: false,
+        description: 'stock(option)'
+    })
+    @ApiQuery({
+        name: 'sft',
+        required: false,
+        description: 'stock filter tpye(default: 0)(0: greater, 1: less)'
+    })
     @Get()
     async find(@Query('price') price: number
             , @Query('pft') pft: number
@@ -21,6 +46,10 @@ export class ProductController {
         return await this.productService.findProducts(price, pft, stock, sft);
     }
     
+    @ApiOperation({
+        summary: 'create product',
+    })
+    @ApiBearerAuth()
     @Post()
     @Roles(RoleEnum.Manager)
     @UseGuards(JwtAuthGuard, RolesGuard)
@@ -28,6 +57,10 @@ export class ProductController {
         return await this.productService.createProduct(dto);
     }
 
+    @ApiOperation({
+        summary: 'Edit product',
+    })
+    @ApiBearerAuth()
     @Put(':id')    
     @Roles(RoleEnum.Manager)
     @UseGuards(JwtAuthGuard, RolesGuard)
@@ -35,6 +68,10 @@ export class ProductController {
         return await this.productService.updateProduct(id, updateData);
     }
 
+    @ApiOperation({
+        summary: 'delete product',
+    })
+    @ApiBearerAuth()
     @Delete(':id')
     @Roles(RoleEnum.Manager)
     @UseGuards(JwtAuthGuard, RolesGuard)

@@ -5,12 +5,18 @@ import { RolesGuard } from '../auth/roles.guard';
 import { RoleEnum } from '../auth/roles.enum';
 import { Roles } from '../auth/roles.decorator';
 import { CreateOrderDto } from './order.dto';
+import { ApiTags, ApiOperation, ApiBearerAuth, ApiBody} from '@nestjs/swagger';
 
+@ApiTags('order')
+@ApiBearerAuth()
 @Controller('order')
 @UseGuards(JwtAuthGuard, RolesGuard)
 export class OrderController {
     constructor(private readonly orderService: OrderService){}
 
+    @ApiOperation({
+        summary: 'order list',
+    })
     @Get()
     @Roles(RoleEnum.Manager, RoleEnum.Customer)
     async findAll(@Req() req: Request):Promise<any> {
@@ -21,6 +27,9 @@ export class OrderController {
         }
     }
 
+    @ApiOperation({
+        summary: 'create order',
+    })
     @Post()
     @Roles(RoleEnum.Customer)
     async Create(@Body() orderDto: CreateOrderDto, @Req() req: Request): Promise<any> {

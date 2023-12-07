@@ -1,8 +1,26 @@
 import { Types } from "mongoose";
-import { ArrayMinSize, IsArray, IsInt, IsNotEmpty, Min, ValidateNested } from "class-validator";
+import { ArrayMinSize, IsArray, IsInt, IsNotEmpty, IsString, Min, ValidateNested } from "class-validator";
 import { Type } from "class-transformer";
+import { ApiProperty } from "@nestjs/swagger";
+
+export class CreateOrderProductDto{
+    @ApiProperty()
+    @IsNotEmpty()
+    productId: Types.ObjectId; 
+
+    @ApiProperty()
+    @IsNotEmpty()
+    @IsInt()
+    @Min(1)
+    quantity: number 
+}
 
 export class CreateOrderDto{
+    @ApiProperty({
+        type: CreateOrderProductDto,
+        isArray: true,
+        minItems: 1,
+      })
     @IsNotEmpty()
     @IsArray()
     @ArrayMinSize(1)
@@ -11,12 +29,3 @@ export class CreateOrderDto{
     products: CreateOrderProductDto[];
 }
 
-export class CreateOrderProductDto{
-    @IsNotEmpty()
-    productId: Types.ObjectId; 
-
-    @IsNotEmpty()
-    @IsInt()
-    @Min(1)
-    quantity: number 
-}

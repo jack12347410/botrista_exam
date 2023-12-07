@@ -59,7 +59,6 @@ export class ProductService {
                 query['stock'] = {};
                 query['stock'][this.getFilter(stockFilterType)] = stock;
             }
-            console.log(query);
             return await this.productModel.find(query);
         }catch(error){
             console.log(error);
