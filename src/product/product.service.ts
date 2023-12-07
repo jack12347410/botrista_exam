@@ -2,7 +2,7 @@ import { BadRequestException, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model, ModifyResult, Types } from 'mongoose';
 import { Product } from './product.entity';
-import { ProductDto } from './product.dto';
+import { CreateProductDto, UpdateProductDto } from './product.dto';
 import { FilterEnum } from './filter.enum';
 import { Order } from '../order/order.entity';
 
@@ -13,7 +13,7 @@ export class ProductService {
         ,@InjectModel('order') private readonly orderModel: Model<Order>
     ){}
 
-    async createProduct(dto: ProductDto):Promise<any> {
+    async createProduct(dto: CreateProductDto):Promise<any> {
         try{
             return await this.productModel.create(dto);
         }catch(error){
@@ -22,9 +22,13 @@ export class ProductService {
         }   
     }
 
-    async updateProduct(id: string, dto: ProductDto): Promise<Product> {
+    async updateProduct(id: string, dto: UpdateProductDto): Promise<Product> {
         try{
-            return await this.productModel.findByIdAndUpdate(id, dto, { new: true });
+            const update = await this.productModel.findByIdAndUpdate(id, dto, { new: true });
+            if(update === null) {
+                throw new BadRequestException('cannot find this Product');
+            }
+            return update;
         }catch(error){
             console.log(error);
             throw new BadRequestException(`update product failed, ${error}`); 

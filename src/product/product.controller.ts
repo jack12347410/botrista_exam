@@ -5,7 +5,7 @@ import { JwtAuthGuard } from '../auth/jwt.guard';
 import { RolesGuard } from '../auth/roles.guard';
 import { RoleEnum } from '../auth/roles.enum';
 import { Product } from './product.entity';
-import { ProductDto } from './product.dto';
+import { CreateProductDto, UpdateProductDto } from './product.dto';
 import { ProductService } from './product.service';
 import { Types } from 'mongoose';
 
@@ -24,14 +24,14 @@ export class ProductController {
     @Post()
     @Roles(RoleEnum.Manager)
     @UseGuards(JwtAuthGuard, RolesGuard)
-    async Create(@Body() product:ProductDto):Promise<any> {
-        return await this.productService.createProduct(product);
+    async Create(@Body() dto:CreateProductDto):Promise<any> {
+        return await this.productService.createProduct(dto);
     }
 
     @Put(':id')    
     @Roles(RoleEnum.Manager)
     @UseGuards(JwtAuthGuard, RolesGuard)
-    async Update(@Param('id') id:string, @Body() updateData: ProductDto): Promise<any> {
+    async Update(@Param('id') id:string, @Body() updateData: UpdateProductDto): Promise<any> {
         return await this.productService.updateProduct(id, updateData);
     }
 
