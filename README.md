@@ -98,10 +98,10 @@ Nest is [MIT licensed](LICENSE).
     -	Manager can view all orders.
 
 ## Test account:
-{ account: 'manager', password: 'manager', roleType: 1 }
-{ account: 'customer', password: 'customer', roleType: 2 }
-{ account: 'customer_2', password: 'customer_2', roleType: 2 }
+- { account: 'manager', password: 'manager', roleType: 1 }
+- { account: 'customer', password: 'customer', roleType: 2 }
+- { account: 'customer_2', password: 'customer_2', roleType: 2 }
 
-db: mongodb://127.0.0.1:27017/botrista
-api doc: http://localhost:3000/swagger
+- db: mongodb://127.0.0.1:27017/botrista
+- api doc: http://localhost:3000/swagger
 
