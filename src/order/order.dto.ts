@@ -1,7 +1,22 @@
 import { Types } from "mongoose";
-import { User } from "../auth/user.entity";
-import { Product } from "../product/product.entity";
+import { ArrayMinSize, IsArray, IsInt, IsNotEmpty, Min, ValidateNested } from "class-validator";
+import { Type } from "class-transformer";
 
-export class OrderDto{
-    products: { productId: Types.ObjectId; quantity: number }[];
+export class CreateOrderDto{
+    @IsNotEmpty()
+    @IsArray()
+    @ArrayMinSize(1)
+    @Type(()=> CreateOrderProductDto)
+    @ValidateNested({ each: true })
+    products: CreateOrderProductDto[];
+}
+
+export class CreateOrderProductDto{
+    @IsNotEmpty()
+    productId: Types.ObjectId; 
+
+    @IsNotEmpty()
+    @IsInt()
+    @Min(1)
+    quantity: number 
 }

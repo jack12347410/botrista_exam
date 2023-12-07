@@ -2,7 +2,7 @@ import { BadRequestException, Injectable, NotFoundException } from '@nestjs/comm
 import { InjectModel } from '@nestjs/mongoose';
 import { Order } from './order.entity';
 import { Model, Types } from 'mongoose';
-import { OrderDto } from './order.dto';
+import { CreateOrderDto } from './order.dto';
 import { Product } from '../product/product.entity';
 
 @Injectable()
@@ -12,7 +12,7 @@ export class OrderService {
         @InjectModel('product') private readonly productModel: Model<Product>
     ){}
 
-    async CreateOrder(customerId: string, orderDto: OrderDto):Promise<any> {
+    async CreateOrder(customerId: string, orderDto: CreateOrderDto):Promise<any> {
         try{
             const updateProductQuery = [];
             for(let i = 0; i < orderDto.products.length; i++){
