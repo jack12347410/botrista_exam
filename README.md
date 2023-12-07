@@ -82,9 +82,9 @@ Nest is [MIT licensed](LICENSE).
   -	Login API
   -	Create product, Edit product, Delete product API (Login Required)
     -	Product Field:
-      -	name: string
-      -	price: number (float)
-      -	stock: number (integer)
+        -	name: string
+        -	price: number (float)
+        -	stock: number (integer)
     -	Only the manager is allowed to create and edit the product.
     -	If someone has ordered the product, the product is not allowed to be deleted.
   -	Products list API
