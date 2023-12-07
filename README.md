@@ -71,3 +71,37 @@ Nest is an MIT-licensed open source project. It can grow thanks to the sponsors 
 ## License
 
 Nest is [MIT licensed](LICENSE).
+
+## -------------------------------------------------------
+## Question: 
+  Create an API service using Node.js, with the flexibility to choose whether to implement it in TypeScript or JavaScript. Additionally, you can use either relational databases or NoSQL databases, and you can use any framework (Express.js, fastify...) you prefer.
+## User role:
+  ●	Manager: Allow to manage product data and view customer's orders.
+  ●	Customer: Can create the order
+## Implement APIs:
+  ●	Login API
+  ●	Create product, Edit product, Delete product API (Login Required)
+    ○	Product Field:
+      ■	name: string
+      ■	price: number (float)
+      ■	stock: number (integer)
+    ○	Only the manager is allowed to create and edit the product.
+    ○	If someone has ordered the product, the product is not allowed to be deleted.
+  ●	Products list API
+    ○	The product list should be filterable by price or stock.
+  ●	Create order API (Login Required)
+    ○	Only customers can create orders.
+    ○	An order may include multiple products.
+    ○	If the product is out of stock, the order cannot be created.
+  ●	Order list API (Login Required):
+    ○	The customer can only view their own orders.
+    ○	Manager can view all orders.
+
+## Test account:
+{ account: 'manager', password: 'manager', roleType: 1 }
+{ account: 'customer', password: 'customer', roleType: 2 }
+{ account: 'customer_2', password: 'customer_2', roleType: 2 }
+
+db: mongodb://127.0.0.1:27017/botrista
+api doc: http://localhost:3000/swagger
+
