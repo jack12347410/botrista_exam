@@ -79,12 +79,12 @@ Nest is [MIT licensed](LICENSE).
   -	Manager: Allow to manage product data and view customer's orders.
   -	Customer: Can create the order
 ## Implement APIs:
-  ●	Login API
-  ●	Create product, Edit product, Delete product API (Login Required)
-    ○	Product Field:
-      ■	name: string
-      ■	price: number (float)
-      ■	stock: number (integer)
+  -	Login API
+  -	Create product, Edit product, Delete product API (Login Required)
+    -	Product Field:
+      -	name: string
+      -	price: number (float)
+      -	stock: number (integer)
     ○	Only the manager is allowed to create and edit the product.
     ○	If someone has ordered the product, the product is not allowed to be deleted.
   ●	Products list API
