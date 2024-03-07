@@ -12,12 +12,12 @@ import { ResponseInterceptor } from './response/response.interceptor';
   providers: [
     {
       provide: APP_INTERCEPTOR,
-      useClass: ResponseInterceptor
+      useClass: ResponseInterceptor,
     },
     {
       provide: APP_PIPE,
-      useClass: ValidationPipe
-    }
+      useClass: ValidationPipe,
+    },
   ],
 })
 export class AppModule {}
