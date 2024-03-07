@@ -1,7 +1,11 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
-import { INestApplication, ValidationPipe } from '@nestjs/common';
-import { DocumentBuilder, SwaggerCustomOptions, SwaggerModule } from '@nestjs/swagger';
+import { INestApplication } from '@nestjs/common';
+import {
+  DocumentBuilder,
+  SwaggerCustomOptions,
+  SwaggerModule,
+} from '@nestjs/swagger';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -13,7 +17,7 @@ async function bootstrap() {
   });
 }
 
-function setUpSwagger(app: INestApplication){
+function setUpSwagger(app: INestApplication) {
   const builder = new DocumentBuilder();
   const config = builder
     .setTitle('Botrista_exam')
@@ -25,7 +29,7 @@ function setUpSwagger(app: INestApplication){
   const doc = SwaggerModule.createDocument(app, config);
   const options: SwaggerCustomOptions = {
     explorer: true, //開啟搜尋列
-  }
+  };
   SwaggerModule.setup('swagger', app, doc, options);
 }
 bootstrap();

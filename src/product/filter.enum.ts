@@ -1,4 +1,4 @@
 export enum FilterEnum {
-    GreaterThan = 0,
-    LessThan = 1
+  GreaterThan = 0,
+  LessThan = 1,
 }
